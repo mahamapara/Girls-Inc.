@@ -144,7 +144,8 @@ hispanic <- get_acs(geography = "place", #census tract-works for individual citi
 hispanic <- hispanic %>%
   mutate(pct = 100*(estimate/summary_est)) #pct is 100. how can summary and hispanic estimates be the same???
 
-
+View(black)
+View(hispanic)
 
 #map output
 mapview(white, zcol = "pct")
@@ -160,5 +161,243 @@ mapview(hispanic, zcol = "pct")
 
 Income for the cities
 
+```{r}
+#people with no income
+no_income <- get_acs(geography = "place", #census tract-works for individual cities
+                    variables = "B06010_002", 
+                    state = "MA",
+                    #county = "Hampden County",
+                    year = 2018, #is also the defualt
+                    geometry = TRUE,
+                    survey = "acs5",
+                    summary_var = "B06010_001")
+
+no_income <- no_income %>%
+  mutate(pct = 100*(estimate/summary_est))
+
+#$1 to $9,999 or loss
+low_income1 <- get_acs(geography = "place", #census tract-works for individual cities
+                      variables = "B06010_004", 
+                      state = "MA",
+                      #county = "Hampden County",
+                      year = 2018, #is also the defualt
+                      geometry = TRUE,
+                      survey = "acs5",
+                      summary_var = "B06010_001") 
+
+low_income1 <- low_income1 %>%
+  mutate(pct = 100*(estimate/summary_est))
+
+#$10,000 to $14,999
+low_income2 <- get_acs(geography = "place", #census tract-works for individual cities
+                      variables = "B06010_005", 
+                      state = "MA",
+                      #county = "Hampden County",
+                      year = 2018, #is also the defualt
+                      geometry = TRUE,
+                      survey = "acs5",
+                      summary_var = "B06010_001") 
+
+low_income2 <- low_income2 %>%
+  mutate(pct = 100*(estimate/summary_est))
+
+#$15,000 to $24,999
+low_income3 <- get_acs(geography = "place", #census tract-works for individual cities
+                      variables = "B06010_006", 
+                      state = "MA",
+                      #county = "Hampden County",
+                      year = 2018, #is also the defualt
+                      geometry = TRUE,
+                      survey = "acs5",
+                      summary_var = "B06010_001") 
+
+low_income3 <- low_income3 %>%
+  mutate(pct = 100*(estimate/summary_est))
+
+#$25,000 to $34,999
+mid_income1 <- get_acs(geography = "place", #census tract-works for individual cities
+                      variables = "B06010_007", 
+                      state = "MA",
+                      #county = "Hampden County",
+                      year = 2018, #is also the defualt
+                      geometry = TRUE,
+                      survey = "acs5",
+                      summary_var = "B06010_001") 
+
+mid_income1 <- mid_income1 %>%
+  mutate(pct = 100*(estimate/summary_est))
+
+#$35,000 to $49,999
+mid_income2 <- get_acs(geography = "place", #census tract-works for individual cities
+                      variables = "B06010_008", 
+                      state = "MA",
+                      #county = "Hampden County",
+                      year = 2018, #is also the defualt
+                      geometry = TRUE,
+                      survey = "acs5",
+                      summary_var = "B06010_001") 
+
+mid_income2 <- mid_income2 %>%
+  mutate(pct = 100*(estimate/summary_est))
+
+#$50,000 to $64,999
+mid_income3 <- get_acs(geography = "place", #census tract-works for individual cities
+                      variables = "B06010_009", 
+                      state = "MA",
+                      #county = "Hampden County",
+                      year = 2018, #is also the defualt
+                      geometry = TRUE,
+                      survey = "acs5",
+                      summary_var = "B06010_001") 
+
+mid_income3 <- mid_income3 %>%
+  mutate(pct = 100*(estimate/summary_est))
+
+#$65,000 to $74,999
+high_income1 <- get_acs(geography = "place", #census tract-works for individual cities
+                      variables = "B06010_010",
+                      state = "MA",
+                      #county = "Hampden County",
+                      year = 2018, #is also the defualt
+                      geometry = TRUE,
+                      survey = "acs5",
+                      summary_var = "B06010_001") 
+
+high_income1 <- high_income1 %>%
+  mutate(pct = 100*(estimate/summary_est))
+
+#$75,000 or more
+high_income2 <- get_acs(geography = "place", #census tract-works for individual cities
+                      variables = "B06010_011", 
+                      state = "MA",
+                      #county = "Hampden County",
+                      year = 2018, #is also the defualt
+                      geometry = TRUE,
+                      survey = "acs5",
+                      summary_var = "B06010_001") 
+
+high_income2 <- high_income2 %>%
+  mutate(pct = 100*(estimate/summary_est))
+
+
+mapview(no_income, zcol = "pct")
+mapview(low_income1, zcol = "pct")
+mapview(low_income2, zcol = "pct")
+mapview(low_income3, zcol = "pct")
+mapview(mid_income1, zcol = "pct")
+mapview(mid_income2, zcol = "pct")
+mapview(mid_income3, zcol = "pct")
+mapview(high_income1, zcol = "pct")
+mapview(high_income2, zcol = "pct")
+
+
+```
+
+
+
+
 Income by race
+
+
+##Health care##
+
+-don't understand the health care but what we can do is show health care amenities (hospitals in each city)
+
+##Education level##
+
+```{r}
+ged_or_similar <- get_acs(geography = "place", #census tract-works for individual cities
+                      variables = "B15003_018", #GED or alternative
+                      state = "MA",
+                      #county = "Hampden County",
+                      year = 2018, #is also the defualt
+                      geometry = TRUE,
+                      survey = "acs5",
+                      summary_var = "B15003_001") #educational attainment for the population 25 years and over
+
+ged_or_similar <- ged_or_similar %>%
+  mutate(pct = 100*(estimate/summary_est))
+
+regHSdiploma <- get_acs(geography = "place", #census tract-works for individual cities
+                      variables = "B15003_017", #regular high school diploma
+                      state = "MA",
+                      #county = "Hampden County",
+                      year = 2018, #is also the defualt
+                      geometry = TRUE,
+                      survey = "acs5",
+                      summary_var = "B15003_001") #educational attainment for the population 25 years and over
+
+regHSdiploma <- regHSdiploma %>%
+  mutate(pct = 100*(estimate/summary_est))
+
+associate <- get_acs(geography = "place", #census tract-works for individual cities
+                      variables = "B15003_021", #associate's degres
+                      state = "MA",
+                      #county = "Hampden County",
+                      year = 2018, #is also the defualt
+                      geometry = TRUE,
+                      survey = "acs5",
+                      summary_var = "B15003_001") #educational attainment for the population 25 years and over
+
+associate <- associate %>%
+  mutate(pct = 100*(estimate/summary_est))
+
+bachelor <- get_acs(geography = "place", #census tract-works for individual cities
+                      variables = "B15003_022", #bachelor's
+                      state = "MA",
+                      #county = "Hampden County",
+                      year = 2018, #is also the defualt
+                      geometry = TRUE,
+                      survey = "acs5",
+                      summary_var = "B15003_001") #educational attainment for the population 25 years and over
+
+bachelor <- bachelor %>%
+  mutate(pct = 100*(estimate/summary_est))
+
+masters <- get_acs(geography = "place", #census tract-works for individual cities
+                      variables = "B15003_023", #master's
+                      state = "MA",
+                      #county = "Hampden County",
+                      year = 2018, #is also the defualt
+                      geometry = TRUE,
+                      survey = "acs5",
+                      summary_var = "B15003_001") #educational attainment for the population 25 years and over
+
+masters <- masters %>%
+  mutate(pct = 100*(estimate/summary_est))
+
+professional_school <- get_acs(geography = "place", #census tract-works for individual cities
+                      variables = "B15003_024", #professional school degree
+                      state = "MA",
+                      #county = "Hampden County",
+                      year = 2018, #is also the defualt
+                      geometry = TRUE,
+                      survey = "acs5",
+                      summary_var = "B15003_001") #educational attainment for the population 25 years and over
+
+professional_school <- professional_school %>%
+                mutate(pct = 100*(estimate/summary_est))
+
+doctorate <- get_acs(geography = "place", #census tract-works for individual cities
+                      variables = "B15003_025", #doctorate degree
+                      state = "MA",
+                      #county = "Hampden County",
+                      year = 2018, #is also the defualt
+                      geometry = TRUE,
+                      survey = "acs5",
+                      summary_var = "B15003_001") #educational attainment for the population 25 years and over
+
+doctorate <- doctorate %>%
+  mutate(pct = 100*(estimate/summary_est))
+
+mapview(ged_or_similar, zcol = "pct")
+mapview(regHSdiploma, zcol = "pct")
+mapview(associate, zcol = "pct")
+mapview(bachelor, zcol = "pct")
+mapview(masters, zcol = "pct")
+mapview(professional_school, zcol = "pct")
+mapview(doctorate, zcol = "pct")
+
+```
+
 
