@@ -1,0 +1,243 @@
+---
+title: "dashboard"
+author: "Reese Hirota"
+date: "6/22/2020"
+output: html_document
+---
+
+```{r}
+# empty dashboard
+library("rmarkdown")
+library("shinydashboard")
+library("shiny")
+header <- dashboardHeader(title = "Girls Inc. of the Valley")
+header$children[[2]]$children <- tags$a(href='http://google.com', 
+                                        HTML('<img alt="girlslogotransparent" src="https://i.ibb.co/RvByTM5/squaregirls.png" style="height:40px; width:47px" />'))
+sidebar <- dashboardSidebar()
+body <- dashboardBody()
+```
+
+```{r}
+girls_boxes <- fluidRow(
+    box(
+      title = "Note", width = 12, status = "primary",
+      "This dashboard was created to primarily demonstrate the following environmental stressors girls from these areas face in their communities, which emphasize the essentiality of Girls Inc. programs."
+    ),
+    valueBox(
+      width = 12, paste0("Lead Levels"), "Chart and map available.", icon = icon("tint"), 
+      color = "yellow"
+    ), 
+    
+    valueBox(
+      width = 6, paste0("Pediatric Asthma"), "Chart and map available.", icon = icon("shapes"), 
+      color = "olive"
+    ),
+    
+    valueBox(
+      width = 6, paste0("Asthma Care"), "Chart and map available.", icon = icon("hospital"),
+      color = "olive"
+    ),
+    
+    valueBox(
+      width = 6, paste0("Childhood Poverty"), "Map available.", icon = icon("child"),
+      color = "purple"
+    ),
+    
+    valueBox(
+      width = 6, paste0("Household Income"), "Chart and map available.", icon = icon("home"),
+      color = "purple"
+    ),
+    
+    valueBox(
+      width = 12, paste0("Contact Girls Inc. of the Valley"), "PO Box 6812, Holyoke, MA 01041 | Tel: (413) 532-6247 |
+Fax: (413) 532-6454", icon = icon("envelope-open-text"),
+      color = "red"
+    )
+
+  )
+
+map_box <- fluidRow(
+  valueBox(
+    width = 12, paste0("Valley Map"), (HTML('<p>Click <a href="https://www.arcgis.com/apps/MapSeries/index.html?appid=5d154f7d1754474ebadc2869cb7fa0c0">HERE</a> for an interactive web app with the above features.</p>')), icon = icon(""), # no icon
+    color = "black"
+  ),
+  valueBox(
+    width = 12, paste0("Mapping Inequality"), (HTML('<p>Click <a href="https://dsl.richmond.edu/panorama/redlining/#loc=11/42.082/-72.594&city=holyoke-chicopee-ma">HERE</a> for an interactive web app detailing historic redlining in the area.</p>')), icon = icon(""), # no icon
+    color = "black"
+  )
+)
+```
+
+```{r}
+# body text
+
+# html for space 
+return <- HTML('<p>&nbsp;</p>')
+
+# text for the introduction/about/info tab
+about_girls <- "Girls Inc. of the Valley currently serves 474 girls ages 5-18 from the greater Chicopee, Holyoke, and Springfield areas. Through intentional and effective programming, both in school and after school, Girls Inc. focuses on the development of the whole girl - while helping to harness the power already within her. The combination of long-lasting mentoring relationships, a pro-girl environment, and research-based programming, equips girls to navigate gender, economic, and social barriers, and group up strong, smart, and bold."
+
+# text for the history tab
+springfield_info <- "Founded in 1636 as the first Springfield in the New World, during the American Revolution, George Washington designated it as the site of the Springfield Armory for its central location, subsequently the site of Shays' Rebellion. The city would also play a pivotal role in the Civil War, as a stop on the Underground Railroad and home of abolitionist John Brown, widely known for his raid on Harpers Ferry, and for the Armory's manufacture of the famed 'Springfield rifles' used ubiquitously by Union troops. Springfield has several nicknames—'The City of Firsts', due to the many innovations developed there, such as the first American dictionary, the first American gas-powered automobile, and the first machining lathe for interchangeable parts; 'The City of Homes', due to its Victorian residential architecture; and 'Hoop City', as basketball—one of the world's most popular sports—was invented in Springfield in 1891 by James Naismith. (Wikipedia)"
+
+holyoke_info <- "Holyoke, a city in Massachusetts Hampden County, is among the early planned industrial cities in the United States. Built in tandem with the Holyoke Dam to utilize the water power of Hadley Falls, it is one of a handful of cities in New England built on the grid plan. During the late 19th century the city produced an estimated 80% of the writing paper used in the United States and was home to the largest paper mill architectural firm in the country, as well as the largest paper, silk, and alpaca wool mills in the world.] Although a considerably smaller number of businesses in Holyoke work in the paper industry today, it is still commonly referred to as 'The Paper City'. Today the city contains a number of specialty manufacturing companies, as well as the Massachusetts Green High Performance Computing Center, an intercollegiate research facility which opened in 2012. Holyoke is also home to the Volleyball Hall of Fame and known as the 'Birthplace of Volleyball', as the internationally played Olympic sport was invented and first played at the local YMCA chapter by William G. Morgan in 1895. (Wikipedia)"
+
+chicopee_info <- "Chicopee is a city located on the Connecticut River in Hampden County, Massachusetts.One of the ventures of the Boston Associates, Chicopee is a city built around several smaller former mill communities on its namesake, the Chicopee River. During the 19th century, the city was home to the first American producer of friction matches as well as a variety of other industries, including the Ames Manufacturing Company, an early pioneer in machining lathes, building upon the work of Springfield's Thomas Blanchard, and the largest producer of swords and cutlasses for the Union Army during the Civil War. By the start of the 20th century, the city was home to a number of industrial plants, including those of the Fisk Tire Company, one of the largest tire makers of that time, and some of the earliest sporting goods factories of A. G. Spalding.
+Today the city is home to a variety of specialty manufacturers, as well as Westover Air Reserve Base, the largest Air Force Reserve Base of the United States, built in 1940 with the emergence of World War II. Chicopee today goes by the nickname the 'Crossroads of New England' as part of a business-development marketing campaign, one that West Springfield also uses. The name reflects the city's location among a number of metropolitan areas and its transportation network. (Wikipedia)"
+
+
+# all the text for the data tab
+data_html <- HTML('<p>Massachusetts Environmental Public Health Tracking</p>
+
+<ul>
+	<li><a href="https://cognos10.hhs.state.ma.us/cv10pub/cgi-bin/cognos.cgi?b_action=cognosViewer&amp;ui.action=run&amp;ui.object=%2fcontent%2ffolder%5b%40name%3d%27MEPHTN%27%5d%2ffolder%5b%40name%3d%27health%27%5d%2freport%5b%40name%3d%27childhood-lead-poisoning%27%5d&amp;ui.name=childhood-lead-poisoning&amp;run.outputFormat=&amp;run.prompt=true&amp;cv.header=false&amp;cv.toolbar=false#">Lead and Data Reports</a></li>
+	<li><a href="https://matracking.ehs.state.ma.us/Health-Data/Asthma/report-choice.html">Asthma and Data Reports</a></li>
+</ul>
+
+<p>Massachusetts Department of Elementary and Secondary Education</p>
+
+<ul>
+	<li><a href="http://www.doe.mass.edu/mcas/results.html">School and District Profiles</a></li>
+</ul>
+
+<p><a href="https://www.census.gov/programs-surveys/acs/data.html">US Census American Community Survey</a>&nbsp;(including&nbsp;<a href="https://www.arcgis.com/home/item.html?id=0e468b75bca545ee8dc4b039cbb5aff6">ACS Poverty Status Variables</a> and <a href="https://www.arcgis.com/home/item.html?id=c9fcad275db846838e747e417a66ca7a">Socioeconomic Status (NSES) Index</a>)</p>
+
+
+<p><a href="https://www.esri.com/en-us/home">Environmental Systems Research Institute</a>&nbsp;(including <a href="https://www.arcgis.com/home/item.html?id=e7ab0fa2d14742aea1bf6f5f0823c021">Diversity Index</a>)</p>
+
+<p>Mapping Inequality built&nbsp;by the Digital Scholarship Lab in University of Richmond.&nbsp;</p>')
+```
+
+
+```{r}
+# chart html 
+chart_html <- HTML('<h3>Average Annual Prevalence of Males and Females with Estimated Confirmed Blood <span style="color:#a87000"><strong>Lead Levels</strong></span>&nbsp;&ge;5&nbsp;&mu;g/dL in 2012-2017 that were between 9-&lt;48 Months of age.</h3>
+<p><em>Massachusetts Environmental Public Health Tracking</em></p>
+<p>It is important to note that the Center for Disease Control has set the upper limit for blood lead for children at 5&nbsp;&mu;g/dL, which this data set aims to reflect. At the community level, from 2012 through 2017, Springfield in particular consistenly had a statistically significantly higher lead levels than other Massachusetts communities. Holyoke too had some counts of statistically significantly igher lead levels, though the majority of counts were not statistically significant. Chicopee fared the best of these cities, with lead levels either not statistically significant, or occasionally statistically significantly lower.&nbsp;</p>
+<p><img alt="meph" src="https://i.ibb.co/Rb41jRh/lead-chart.png" style="height:370px; width:607px" /></p>
+
+<h3><span style="color:#4c7300"><strong>Asthma</strong> <strong>Hospitalizations</strong></span>/ER Visits and <span style="color:#4c7300"><strong>Pediatric Asthma Prevalence</strong></span></h3>
+<p><em>Massachusetts Environmental Public Health Tracking</em></p>
+<p>Three data sets involving the communites Girls Inc. serves (Chicopee, Holyoke, and Springfield)&nbsp;were explored: asthma hospitalizations from 2000-2015, ER visits due to asthma from 2000-2015, and pediatric prevalence per 100 students for females aged 5-14, for the school years 2009-2010 to 2016-2017.</p>
+<p>All three cities have significantly higher asthma-related hospitalization rates (crude) in citywide comparison to the rest of Massachusetts, for both males and females from the ages of under 5 to 34 years. Springfield has a higher rate of asthma hospitalization amongst these cities. These communities also have significantly higher asthma-related emergency department visit rates (crude) for both males and females from under 5 years of age to 34 years of age, and significantly higher pediatric asthma prevalence in kindergarten to 8th grade students (females aged 5 to 14 years) relative to Massachusetts, with Holyoke having the greatest proportion of the three for both figures.</p>
+<p><img alt="" src="https://i.ibb.co/M8yY0sf/asthma1.png" style="height:370px; width:607px" /></p><p><img alt="" src="https://i.ibb.co/w0c9YNS/asthma2.png" style="height:370px; width:607px" /></p><p><img alt="" src="https://i.ibb.co/QN9pP5Z/asthma3.png" style="height:370px; width:607px" /></p>
+
+<h3>Median<span style="color:#4c0073"><strong> Household Income</strong></span> and <strong><span style="color:#4c0073">Female Poverty Rates</span></strong> From 2014-2018</h3>
+<p><em>US Cenusus American Community Survey</em></p>
+<p>From the US Census American Community Survey 5-Year Data, the data was filtered to the zip codes from which 79% of Girls Inc. members resided (01040, 01013, 01104, 01109, and 01107), &nbsp;composing mostly of the cities of Holyoke, Chicopee, and Springfield. Zip code areas with less than 20 Girls Inc. members were excluded from visualizations for clarity. Two datasets were provided: median household income of the five zip codes compared to the rest of Hampden County and Massachusetts, and female poverty rates for populations aged 5-17 of the five zip codes compared to the rest of Hampden County and Massachusetts. This data provides insight into the lasting impacts of redlining in the area.&nbsp;</p>
+<p>All five zip codes representing a majority of Girls Inc. members have a considerably smaller median household income than the rest of Hampden County and Massachusetts. The zip codes belonging to Springfield (01104, 01107, and 01109), reperesenting 31% of Girls Inc. members, have the smallest median household income.&nbsp;</p>
+<p>All five zip codes representing a majority of Girls Inc. members have a considerably higher rate of female poverty among those aged 5-17 than the rest of Hampden County and Massachusetts. The Springfield zip code of 01107, representing 12% of Girls Inc. members, has the highest rate of female poverty within this age range.&nbsp;</p>
+<p><img alt="acs" src="https://i.ibb.co/dkLHkz9/censusmedhi.png" style="height:525px; width:607px" /></p>
+<p><img alt="acs" src="https://i.ibb.co/6XyMgr5/censusfpov.png" style="height:525px; width:607px" /></p>
+
+<h3>Girls&#39; MCAS Scores in 2019 for Springfield, Holyoke, and Chicopee</h3>
+<p><em>Massachusetts Department of Elementary and Secondary Education</em></p>
+<p>The Massachusetts Comprehensive Assessment System or MCAS are the state mandated exams given once a year for grades 3 through 8 once and once in high school for grade 10 as part of the state graduation requirement. There are 4 grades on the exam: Exceeding Expectations, Meeting Expectations, Partially Meeting Expectations, and Not Meeting Expectations.&nbsp;</p>
+<p>On average most girls in these districts are not meeting expectations regardless of subject matter or grade level. The math scores are particularly concerning as they illustrate not only low scores but declining scores.&nbsp;</p>
+<p><img alt="mcas" src="https://i.ibb.co/Fnpkv22/mcas.png" style="height:380px; width:607px" /></p>')
+```
+
+#this is where map screenshots can be added
+```{r}
+# map html
+lead_text <- HTML('<h3>Average Annual Prevalence of Females with Estimated Confirmed Blood <span style="color:#a87000"><strong>Lead Levels</strong></span> Greater than or Equal to 5 μg/dL in 2012 - 2017 that were between 9 to less than 48 Months of Age </h3>
+<p><em>Massachusetts Environmental Public Health Tracking</em></p>
+<p>Significance levels in Chicopee, Holyoke, and Springfield, the three towns served by Girls Inc., are mapped by census tract, with the surrounding areas mapped by town.
+It is important to note that the Centers for Disease Control and Prevention has set the upper limit for blood lead for children at 5 μg/dL, which this data set aims to reflect. From 2012 through 2017, many tracts within Springfield in particular had a statistically significantly higher prevalence of greater lead levels than other Massachusetts communities. Holyoke and Chicopee too had at least one tract with statistically significantly high lead levels.&nbsp;</p>')
+lead_map <- HTML('<p><img alt="" src="https://i.ibb.co/hM1RwdD/lead-map.png" style="height:370px; width:607px" /></p>')
+
+pediatric_text <- HTML('<h3><span style="color:#4c7300"><strong>Pediatric Asthma Prevalence</strong></span> per 100 Students for Females for School Year 2016-2017</h3>
+<p><em>Massachusetts Environmental Public Health Tracking</em></p>
+<p>Chicopee, Holyoke, and Springfield all have statistically significantly higher asthma rates for the state of Massachusetts. Of the immediate surrounding towns, only two, East Longmeadow and Northampton, also had statistically significantly higher asthma rates. The rest of the surrounding towns either did not have statistically significant asthma rates or had statistically significantly lower asthma rates, in the case of Longmeadow and Easthampton.&nbsp;</p>')
+pediatric_map <- HTML('<p><img alt="" src="https://i.ibb.co/TBbv8k7/pediatric_map.png" style="height:370px; width:607px" /></p>')
+
+hospitalization_text <- HTML('<h3>Age Adjusted Rates of <span style="color:#4c7300"><strong>Hospital Admission</strong></span>  per 10,000 People, for Females for 2015 by Community</h3>
+<p><em>Massachusetts Environmental Public Health Tracking</em></p>
+<p>Chicopee, Holyoke, and Springfield all have statistically significantly higher rates of hospital admission in comparison to other Massachusetts towns. Of data available for the surrounding towns, the rates are either not statistically significantly different or statistically significantly lower, with the exception of West Springfield which is also statistically significantly higher.&nbsp;</p>')
+hospitalization_map <- HTML('<p><img alt="" src="https://i.ibb.co/jWSWTWv/hospitalization-map.png" style="height:370px; width:607px"/></p>')
+
+child_text <- HTML('<h3>Percent of Children (Under 18 Years) Whose <strong><span style="color:#4c0073"> Income in the Past 12 Months is Below Poverty Level</span></strong></h3>
+<p><em>ACS Poverty Status Variables</em></p>
+<p>Although there is some variation amongst census tracts within the three cities, Chicopee, Holyoke, and Springfield all have high rates of childhood poverty, especially in comparison to the surrounding areas. Girls Inc. of the Valley participants, which consists of girls from these areas, more prevalently face economic hardships than girls who live in other towns.&nbsp;</p>')
+child_map <- HTML('<p><img alt="" src="https://i.ibb.co/GJ0fZTd/child_map.png" style="height:370px; width:607px"/></p>')
+
+household_text <- HTML('<h3>Median <strong><span style="color:#4c0073">Household Income</span></strong></h3>
+<p><em>Socioeconomic Status (NSES) Index by Census Tract, 2011-2015</em></p>
+<The median household income in the majority of households in communities served by Girls Inc., and particularly those from Springfield, is less than $40,350 annually. Household income in these towns generally lower than those of the surrounding area.&nbsp;</p>')
+household_map <- HTML('<p><img alt="" src="https://i.ibb.co/17Kscvn/household-map.png" style="height:370px; width:607px"/></p>')
+
+diversity_text <- HTML('<h3>Diversity Index 2018</span></strong></h3>
+<p><em>Environmental Systems Research Institute</em></p>
+<p>The Diversity Index represents the likelihood that at random, two people selected from the same census tract are of different racial or ethnic groups. The index increases to 100% (at which the area is evenly split amongst the different groups in the population). Based on the Diversity Index, Chicopee, Holyoke, and Springfield are much more diverse than the towns which immediately surround it.&nbsp;</p>')
+diversity_map <- HTML('<p><img alt="" src="https://i.ibb.co/G3Y5PfD/diversity-map.png" style="height:370px; width:607px"/></p>')
+```
+
+```{r}
+# springfield text
+sp_hist_econ <- HTML('<h5><p><strong>19th Century</strong></p> <p><em>Synopsis of Acheivements in the 19th Century and why it was Dubbed the City of Progress</em></p> <p>The City of Springfield, and, in particular, the Springfield Armory played an important role i the early Industrial Revolution. As of 2011, Springfield is nicknamed <em>The City of Firsts</em>; however, throughout the 19th and 20th centuries, its nickname was <em>The City of Progress</em>. Throughout its history, Springfield has been a center of commercial invention, ideological progress, and technological innovation. For example, in 1819, inventor Thomas Blanchard and his lathe led to the uses of interchangeable parts and assemly line mass production, which went on to influence the entire world – while originally making arms production at The Springfield armory faster and less expensive. Thus, Blanchard – and Springfield – are credited with the discovery of the assembly line manufacturing process. Blanchard also invented the first modern car in Springfield, a "horseless carriage" powered by steam.</p> <p>The first American-English dictionary was produced in Springfield in 1806 by the company now known as Merriam Webster. Merriam Webster continues to maintain its worldwide headquarters in Springfield, just north of the Springfield Armory.</p> <p>In Springfield, "The City of Progress," many products were invented that are still popular and necessary today. For example, in 1844, Charles Goodyear perfected and patented vulcanized rubber at his factory in Springfield. (The automobile had not yet been invented, so Goodyear patented his rubber stamp rather than tires, for which he later became known). In 1856, the first-ever adjustable monkey wrench was inventred in Springfield. In 1873, the first American postcard was invented in Springfield by the Morgan Envelope Factory. Also, the first American horse show and dog show were both produced in Springfield in 1853 and 1875, respectively.</p> <p><em>History on Slavery Practices in the City</em></p> <p>Well known for its "firsts," Springfield also has the distinction of being the last New England city to free another state&apos;s slave. In Massachusetts, the cruel institution was outlawed by 1783, in a court decision based on the 1780 Massachusetts Constitution. In 1808, a man from New York – where slacery, at the time, was legal – came to Springfield demanding the return of a woman, Jenny, he enslaved who had escaped and been living in Springfield for several years. In a show of support for abolitionism, the citizens of Springfield, raised enough money to buy Jenny&apos;s "freedom" from the New Yorker. Jenny lived a free woman in Springfield therafter.</p> <p><em>Becoming a City</em></p> <p>In 1852, Springfield was chartered as a city after decades of debate, which, in 1848, resulted in the partitioning off the northern part of Springfield into Chicopee to reduce Springfield&apos;s land and population. The partition of Chicopee from Springfield deprived the city of approximately half of its territory and two-thirds of its population. To this day, the two cities of Springfield and Chicopee have relatively small land areas and remain separate.</p> <p><em>Manufacturing</em></p> <p><strong>Wason Manufacturing Company of Springfield</strong> – one of the United States&apos; first makers of railway passenger coach equipment – produced America&apos;s first sleeping car in 1857, (also known as a Pullman Car). On May 2, 1849, the Springfield Railroad was chartered to build from Springfield ot the Connecticut state line. By the 1870s the endeavor had become the Springfield and New London Railroad.</p> 
+<p>In 1856, Horace Smith and Daniel B. Wesson formed <strong>Smith & Wesson</strong> to manufacture revolvers. Smith & Wesson has gone on to become the largest and, it can be argued, the most famous gun manufacturer in the world. The company&apos;s headquarters remains remains in Springfield and as of 2011, employs over 1,200 workers.</p>
+<p>On September 20, 1893, Springfield citizens Charles and Frank Duryea built and then road-tested the first-ever American, gasoline-powered car in Springfield. The Duryea Motor Wagon was built on the third floor of the Stacy Building in Springfield, and first publicly road-tested on Howard Bemis&apos;s farm. In 1895, the Duryea Motor Wagon won America&apos;s first-ever road race – a 54-mile (87 km) race from Chicago to Evanston, Illinois. In 1896, the Duryea Motor Wagon Company became the first company to manufacture and sell gasoline-powered automobiles. The company&apos;s motto was "there is no better motorcar." Immediately, Duryeas were purchased by luminaries of the times, such as George Vanderbilt. Two months after buying one of the world&apos;s first Duryeas, New York City motorist Henry Wells hit a bicyclist – the rider suffered a broken leg, Wells spent a night in jail – and that was Springfield&apos;s peripheral role in the first-ever automobile accident.</p> <p><em>Political History/Affiliations</em></p> <p>In 1855, the formation of the Republican Party was championed by Samuel Bowles III, publisher of the influential Springfield daily newspaper, <em>the Republican</em>. The Republican Party later took its name from Bowles&apos; newspaper. ON Friday, September 21, 1855, the headline in <em>The Republican</em>: read: "The Child is Born!" This marked the birth of the Republican Party. By 1858, the Republicans had taken control of many Northern States&apos; governments. In 1860, Bowles was on the train to the Republican convention in Chicago where his friend, Springfield lawyer George Ashmun, was elected chairman of the convention that would eventually nominate Abraham Lincoln for president.</p> <p><strong>20th Century & 21st Century</strong></p> <p><em></em>Forty Year Decline and Immigration Trends</p> <p>throughout the latter half of the 20th century, Springfield endured a protracted decline, accelerated by the decommission of the Springfield Armory in 1969. Springfield became increasingly like other declining Northeastern U.S. cities from which it had long been set apart. During the 1980s and 1990s, Springfield developed a new reputation for crime, political corruption, and cronyism. Seeking to overcome its downgrade, the city undertook several large (but unfinished) projects, including a $1 billion high-speed rail (New Haven-Hartford_Springfield high-speed rail), a proposed $1 billion MGM Casino, and others.</p> <p>In 1968, the Springfield Armory was controversially, closed-down amid the Vietnam War. From this point onward, prcision manufacturing companies, which had long provided Springfield&apos;s economic base and were also the driving factor behind its famous creativity, left the city for places with lower taxes. (As of 2011, there are 36,000 manufacturing jobs in Metro Springfield). During this time of decline, unlike its Northeast American peer cities like Providence, New Haven, and Hartford, which hemorrhaged large portions of their populations, Springfield lsot comparatively few residents. As of 2011, Springfield had only 20,000 fewere people than it did in its most populous census year, 2960.</p> <p>The exodus of its wealthy and middle-class – mostly Caucasians – to surrounding suburbs was compensated for by an influx of Hispanic immigrants, which changed the demographics of Springfield to a great extent by the 2010 census. Springfield, which ahd once been a primarily Caucasian city, (featuring large populations of English, Irish, Italian, French Canadia, and Polish residents) with a steady 15% Black minority is now evenly split between Caucasians and Hispanics, primarily of Puerto Rican descent. Initially poor on arrival in Springfield, the Hispanic community&apos;s integration and subsequent increase in buying power set the stage for Springfield&apos;s resurgence in the first decade of the 21st century.</p> 
+<p>In addition ot the influx of Latinos, as of the 2010 census, Springfield is one of the top five most populous east coast cities for Vietnamese immigrants – and one of the top three east coast cities for Vietnamese immigrants per capita, behind Boston and Washington, D.C. Also, the 2010 census indicated a substantial increase in Springfield&apos;s LGBT population, likely catalyzed by Massachusetts&apos; 2004 decision to legalize gay marriage. The 2010 census indicates that Springfield now ranks tenth among all U.S. cities with 5.69 same-sex couples per thousand (San Francisco, California ranked first). Since about 2005, Springfield&apos;s Club Quarter in Metro Center has seen a large increase in LGBT bars and clubs.</p> <p><em>Current Population</em></p> <p>As of the 2010 census, the city&apos;s population was 153,060. By race, the city has a 31.7% White population, 20.9% Black Population, 44.7% Hispanic or Latino population, 2.2% Asian population, and 0.4% Native American populaiton. </p> </h5>')
+```
+
+
+
+```{r}
+# add tabs
+sidebar <- dashboardSidebar(
+  sidebarMenu(
+    # tab : about girls inc
+    menuItem("About Girls Inc. of the Valley", tabName = "girls", icon = icon("heart")),
+    # tab : history of the valley
+#    menuItem("History of the Valley", tabName = "history", icon = icon("book")),
+    # tab : charts from original report
+   menuItem("History of the Valley", tabName = "history", icon = icon("book"),
+             menuSubItem("Springfield", tabName = "springfield", icon = icon("city")),
+             menuSubItem("Chicopee", tabName = "chicopee", icon = icon("city")),
+             menuSubItem("Holyoke", tabName = "holyoke", icon = icon("city"))),
+    menuItem("Overview Charts", icon = icon("chart-bar"), tabName = "charts"),
+    # tab : maps from argis (new)
+    menuItem("Overview Map", icon = icon("map"), tabName = "map", badgeLabel = "interactive", badgeColor = "light-blue"),
+    # tab: sources 
+    menuItem("Data", icon = icon("table"), tabName = "data")
+    
+    # add search bar
+    # sidebarSearchForm(textId = "searchText", buttonId = "searchButton", label = "Search...")
+    
+  )
+)
+
+body <- dashboardBody(
+  # start introduction - done
+  tabItems(
+    tabItem(tabName = "girls", h1("About Girls Inc. of the Valley"),h3("Introduction"), h4(about_girls),girls_boxes),
+  # end introduction - done
+  
+  # start history - wip
+    tabItem(tabName = "chicopee", h1("Chicopee"),h3(chicopee_info)),
+    tabItem(tabName = "holyoke",h1("Holyoke"),h3(holyoke_info)),
+    tabItem(tabName = "springfield",h1("Springfield"),h3(springfield_info),h3("History of the Economy/City"), sp_hist_econ),
+  # end history - wip
+  
+  # start charts - wip
+    tabItem(tabName = "charts", h1("Overview Charts"), chart_html),
+  # end charts - wip
+  
+  # start map - wip
+    tabItem(tabName = "map", h1("Overview Map"), lead_text, lead_map, pediatric_text, pediatric_map, hospitalization_text, hospitalization_map, child_text, child_map, household_text, household_map, diversity_text, diversity_map, map_box),
+  # end map - wip 
+  
+  # start data - done
+    tabItem(tabName = "data", h1("Sources for Data"), data_html)
+  # end data - done
+  
+  )
+)
+
+# refresh ui
+ui <- dashboardPage(skin = "black", header, sidebar, body)
+server <- function(input,output) {}
+shiny::shinyApp(ui,server)
+```
+
+
