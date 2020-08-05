@@ -108,6 +108,7 @@ data_html <- HTML('<p>Massachusetts Environmental Public Health Tracking</p>
 <p>Mapping Inequality built&nbsp;by the Digital Scholarship Lab in University of Richmond.&nbsp;</p>')
 ```
 
+#add charts here
 
 ```{r}
 # chart html 
@@ -170,6 +171,9 @@ diversity_text <- HTML('<h3>Diversity Index 2018</span></strong></h3>
 <p><em>Environmental Systems Research Institute</em></p>
 <p>The Diversity Index represents the likelihood that at random, two people selected from the same census tract are of different racial or ethnic groups. The index increases to 100% (at which the area is evenly split amongst the different groups in the population). Based on the Diversity Index, Chicopee, Holyoke, and Springfield are much more diverse than the towns which immediately surround it.&nbsp;</p>')
 diversity_map <- HTML('<p><img alt="" src="https://i.ibb.co/G3Y5PfD/diversity-map.png" style="height:370px; width:607px"/></p>')
+
+#this works for adding the maps
+white_race_map <- HTML('<a href="https://ibb.co/f2f4kH6"><img src="https://i.ibb.co/mGk694Z/white.png" alt="white" border="0"></a>')
 ```
 
 ```{r}
@@ -224,7 +228,7 @@ body <- dashboardBody(
   # end charts - wip
   
   # start map - wip
-    tabItem(tabName = "map", h1("Overview Map"), lead_text, lead_map, pediatric_text, pediatric_map, hospitalization_text, hospitalization_map, child_text, child_map, household_text, household_map, diversity_text, diversity_map, map_box),
+    tabItem(tabName = "map", h1("Overview Map"), lead_text, lead_map, pediatric_text, pediatric_map, hospitalization_text, hospitalization_map, child_text, child_map, household_text, household_map, diversity_text, diversity_map, white_race_map, map_box),
   # end map - wip 
   
   # start data - done
