@@ -133,7 +133,7 @@ black <- black %>%
 ###hispanic
 
 hispanic <- get_acs(geography = "place", #census tract-works for individual cities
-                    variables = "B03002_001", #hispanic or latino origin by race
+                    variables = "B03001_003", #hispanic or latino origin by race
                     state = "MA",
                     #county = "Hampden County",
                     year = 2018,
@@ -141,11 +141,10 @@ hispanic <- get_acs(geography = "place", #census tract-works for individual citi
                     survey = "acs5",
                     summary_var = "B01003_001") 
 
+
 hispanic <- hispanic %>%
   mutate(pct = 100*(estimate/summary_est)) #pct is 100. how can summary and hispanic estimates be the same???
 
-View(black)
-View(hispanic)
 
 #map output
 mapview(white, zcol = "pct")
@@ -294,15 +293,6 @@ mapview(high_income2, zcol = "pct")
 ```
 
 
-
-
-Income by race
-
-
-##Health care##
-
--don't understand the health care but what we can do is show health care amenities (hospitals in each city)
-
 ##Education level##
 
 ```{r}
@@ -396,8 +386,21 @@ mapview(associate, zcol = "pct")
 mapview(bachelor, zcol = "pct")
 mapview(masters, zcol = "pct")
 mapview(professional_school, zcol = "pct")
-mapview(doctorate, zcol = "pct")
+mapview(doctorate, zcol = "pct") 
+
+
+p <- mapview(professional_school, zcol = "pct")
+d <- mapview(doctorate, zcol = "pct")
+p+d
+
 
 ```
 
+1. ss of race maps with cities + legends only
+2. add to dashboard with text
+3. see video on leaflet/mapview interaction with shiny
+4. add city polygons to maps to highlight them
+5. create charts for income (bar chart)
+6. create charts for education levels (bar charts)
+7. make dashboard so that each factor chart aligns with each factor's map
 
