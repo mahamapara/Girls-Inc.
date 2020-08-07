@@ -1,0 +1,240 @@
+---
+title: "New charts"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(ggplot2)
+library(dplyr)
+library(gridExtra)
+```
+
+
+#income levels
+```{r}
+#people with no income: no_income
+
+geoids <- c("2513660", "2530840", "2567000")
+
+noIncome_filtered <- no_income %>% 
+  filter(GEOID %in% geoids)
+
+noIncome <- ggplot(data = noIncome_filtered, mapping = aes(x = NAME, y = pct))+
+        geom_bar(stat = "identity")+
+        ggtitle("Percentage without  income in Chicopee, Holyoke, Springfield")+ 
+        labs(y= "Percentage", x = "Geographical Location")
+
+
+
+#$1 to $9,999 or loss: low_income1
+
+low1_filtered <- low_income1 %>% 
+  filter(GEOID %in% geoids)
+
+low1 <- ggplot(data = low1_filtered, mapping = aes(x = NAME, y = pct))+
+        geom_bar(stat = "identity")+
+        ggtitle("$1 to $9,999 or loss in Chicopee, Holyoke, Springfield")+ 
+        labs(y= "Percentage", x = "Geographical Location")
+
+
+#$10,000 to $14,999: low_income2
+
+low2_filtered <- low_income2 %>% 
+  filter(GEOID %in% geoids)
+
+low2 <- ggplot(data = low2_filtered, mapping = aes(x = NAME, y = pct))+
+        geom_bar(stat = "identity")+
+        ggtitle("$10,000 to $14,999 in Chicopee, Holyoke, Springfield")+ 
+        labs(y= "Percentage", x = "Geographical Location")
+
+#$15,000 to $24,999: low_income3
+
+low3_filtered <- low_income3 %>% 
+  filter(GEOID %in% geoids)
+
+low3 <- ggplot(data = low3_filtered, mapping = aes(x = NAME, y = pct))+
+        geom_bar(stat = "identity")+
+        ggtitle("$15,000 to $24,999 in Chicopee, Holyoke, Springfield")+ 
+        labs(y= "Percentage", x = "Geographical Location")
+
+#$25,000 to $34,999: mid_income1 
+
+mid1_filtered <- mid_income1 %>% 
+  filter(GEOID %in% geoids)
+
+mid1 <- ggplot(data = mid1_filtered, mapping = aes(x = NAME, y = pct))+
+        geom_bar(stat = "identity")+
+        ggtitle("$15,000 to $24,999 in Chicopee, Holyoke, Springfield")+ 
+        labs(y= "Percentage", x = "Geographical Location")
+
+#$35,000 to $49,999: mid_income2
+
+mid2_filtered <- mid_income2 %>% 
+  filter(GEOID %in% geoids)
+
+mid2 <- ggplot(data = mid2_filtered, mapping = aes(x = NAME, y = pct))+
+        geom_bar(stat = "identity")+
+        ggtitle("$35,000 to $49,999 in Chicopee, Holyoke, Springfield")+ 
+        labs(y= "Percentage", x = "Geographical Location")
+
+#$50,000 to $64,999: mid_income3
+
+mid3_filtered <- mid_income3 %>% 
+  filter(GEOID %in% geoids)
+
+mid3 <- ggplot(data = mid3_filtered, mapping = aes(x = NAME, y = pct))+
+        geom_bar(stat = "identity")+
+        ggtitle("$50,000 to $64,999 in Chicopee, Holyoke, Springfield")+ 
+        labs(y= "Percentage", x = "Geographical Location")
+
+#$65,000 to $74,999: high_income1
+
+high1_filtered <- high_income1 %>% 
+  filter(GEOID %in% geoids)
+
+high1 <- ggplot(data = high1_filtered, mapping = aes(x = NAME, y = pct))+
+        geom_bar(stat = "identity")+
+        ggtitle("$65,000 to $74,999 in Chicopee, Holyoke, Springfield")+ 
+        labs(y= "Percentage", x = "Geographical Location")
+
+#$75,000 or more: high_income2
+high2_filtered <- high_income2 %>% 
+  filter(GEOID %in% geoids)
+
+high2 <- ggplot(data = high2_filtered, mapping = aes(x = NAME, y = pct))+
+        geom_bar(stat = "identity")+
+        ggtitle("$75,000 or more in Chicopee, Holyoke, Springfield")+ 
+        labs(y= "Percentage", x = "Geographical Location")
+##
+noIncome
+low1
+low2
+low3
+mid1
+mid2
+mid3 
+high1
+high2
+
+```
+
+#education levels
+
+```{r}
+#ged_or_similar, regHSdiploma, associate, bachelor, masters, professional_school, doctorate
+
+#View(ged_or_similar)
+
+
+geoids <- c("2513660", "2530840", "2567000")
+
+ged_filtered <- ged_or_similar %>% 
+  filter(GEOID %in% geoids)
+
+ged_filtered <- ged_filtered %>% 
+  mutate(pct = 100*(estimate/summary_est)) 
+
+#View(ged_filtered)
+
+ged <- ggplot(data = ged_filtered, mapping = aes(x = NAME, y = pct))+
+        geom_bar(stat = "identity")+
+        ggtitle("GED or similar in Chicopee, Holyoke, Springfield")+ 
+        labs(y= "Percentage of GED or similar", x = "Geographical Location")
+
+##
+
+reg_filtered <- regHSdiploma %>% 
+  filter(GEOID %in% geoids)
+
+reg_filtered <- reg_filtered %>% 
+  mutate(pct = 100*(estimate/summary_est))
+
+
+regular_diploma <- ggplot(data = reg_filtered, mapping = aes(x = NAME, y = pct))+
+        geom_bar(stat = "identity")+
+        ggtitle("Regular HS diploma in Chicopee, Holyoke, Springfield")+ 
+        labs(y= "Percentage of regular high school diploma", x = "Geographical Location")
+##
+associate_filtered <- associate %>% 
+  filter(GEOID %in% geoids)
+
+associate_filtered <- associate_filtered %>% 
+  mutate(pct = 100*(estimate/summary_est))
+
+
+associate_deg <- ggplot(data = associate_filtered, mapping = aes(x = NAME, y = pct))+
+        geom_bar(stat = "identity")+
+        ggtitle("Associate degrees in Chicopee, Holyoke, Springfield")+ 
+        labs(y= "Percentage of associate degrees", x = "Geographical Location")
+##
+bachelor_filtered <- bachelor %>% 
+  filter(GEOID %in% geoids)
+
+bachelor_filtered <- bachelor_filtered %>% 
+  mutate(pct = 100*(estimate/summary_est))
+
+
+bachelor_deg <- ggplot(data = bachelor_filtered, mapping = aes(x = NAME, y = pct))+
+        geom_bar(stat = "identity")+
+        ggtitle("Bachelor degrees in Chicopee, Holyoke, Springfield")+ 
+        labs(y= "Percentage of bachelor degrees", x = "Geographical Location")
+
+
+
+##
+
+masters_filtered <- masters %>% 
+  filter(GEOID %in% geoids)
+
+masters_filtered <- masters_filtered %>% 
+  mutate(pct = 100*(estimate/summary_est))
+
+
+masters_deg <- ggplot(data = masters_filtered, mapping = aes(x = NAME, y = pct))+
+        geom_bar(stat = "identity")+
+        ggtitle("Masters degrees in Chicopee, Holyoke, Springfield")+ 
+        labs(y= "Percentage of masters degrees", x = "Geographical Location")
+##
+professional_school_filtered <- professional_school %>% 
+  filter(GEOID %in% geoids)
+
+professional_school_filtered <- professional_school_filtered %>% 
+  mutate(pct = 100*(estimate/summary_est))
+
+
+professional_school_deg <- ggplot(data = professional_school_filtered, mapping = aes(x = NAME, y = pct))+
+        geom_bar(stat = "identity")+
+        ggtitle("professional school degrees in Chicopee, Holyoke, Springfield")+ 
+        labs(y= "Percentage of professional school degrees", x = "Geographical Location")
+
+##
+doctorate_filtered <- doctorate %>% 
+  filter(GEOID %in% geoids)
+
+doctorate_filtered <- doctorate_filtered %>% 
+  mutate(pct = 100*(estimate/summary_est))
+
+#View(doctorate_filtered)
+
+
+doctorate_deg <- ggplot(data = doctorate_filtered, mapping = aes(x = NAME, y = pct))+
+        geom_bar(stat = "identity")+
+        ggtitle("Doctorate degrees in Chicopee, Holyoke, Springfield")+ 
+        labs(y= "Percentage of doctorate degrees", x = "Geographical Location")
+
+#grid.arrange(ged, regular_diploma, associate_deg, bachelor_deg, masters_deg, professional_school_deg, doctorate_deg, ncol = 3)
+
+ged
+regular_diploma 
+associate_deg 
+bachelor_deg 
+masters_deg
+professional_school_deg 
+doctorate_deg
+
+```
+
