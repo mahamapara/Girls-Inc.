@@ -138,6 +138,37 @@ chart_html <- HTML('<h3>Average Annual Prevalence of Males and Females with Esti
 <p><img alt="mcas" src="https://i.ibb.co/Fnpkv22/mcas.png" style="height:380px; width:607px" /></p>')
 ```
 
+#individual charts html
+```{r}
+lead_chart <- HTML('<h3>Average Annual Prevalence of Males and Females with Estimated Confirmed Blood <span style="color:#a87000"><strong>Lead Levels</strong></span>&nbsp;&ge;5&nbsp;&mu;g/dL in 2012-2017 that were between 9-&lt;48 Months of age.</h3>
+<p><em>Massachusetts Environmental Public Health Tracking</em></p>
+<p>It is important to note that the Center for Disease Control has set the upper limit for blood lead for children at 5&nbsp;&mu;g/dL, which this data set aims to reflect. At the community level, from 2012 through 2017, Springfield in particular consistenly had a statistically significantly higher lead levels than other Massachusetts communities. Holyoke too had some counts of statistically significantly igher lead levels, though the majority of counts were not statistically significant. Chicopee fared the best of these cities, with lead levels either not statistically significant, or occasionally statistically significantly lower.&nbsp;</p>
+<p><img alt="meph" src="https://i.ibb.co/Rb41jRh/lead-chart.png" style="height:370px; width:607px" /></p>')
+
+asthma_chart <- HTML('<h3><span style="color:#4c7300"><strong>Asthma</strong> <strong>Hospitalizations</strong></span>/ER Visits and <span style="color:#4c7300"><strong>Pediatric Asthma Prevalence</strong></span></h3>
+<p><em>Massachusetts Environmental Public Health Tracking</em></p>
+<p>Three data sets involving the communites Girls Inc. serves (Chicopee, Holyoke, and Springfield)&nbsp;were explored: asthma hospitalizations from 2000-2015, ER visits due to asthma from 2000-2015, and pediatric prevalence per 100 students for females aged 5-14, for the school years 2009-2010 to 2016-2017.</p>
+<p>All three cities have significantly higher asthma-related hospitalization rates (crude) in citywide comparison to the rest of Massachusetts, for both males and females from the ages of under 5 to 34 years. Springfield has a higher rate of asthma hospitalization amongst these cities. These communities also have significantly higher asthma-related emergency department visit rates (crude) for both males and females from under 5 years of age to 34 years of age, and significantly higher pediatric asthma prevalence in kindergarten to 8th grade students (females aged 5 to 14 years) relative to Massachusetts, with Holyoke having the greatest proportion of the three for both figures.</p>
+<p><img alt="" src="https://i.ibb.co/M8yY0sf/asthma1.png" style="height:370px; width:607px" /></p><p><img alt="" src="https://i.ibb.co/w0c9YNS/asthma2.png" style="height:370px; width:607px" /></p><p><img alt="" src="https://i.ibb.co/QN9pP5Z/asthma3.png" style="height:370px; width:607px" /></p>')
+
+household_chart <- HTML('<h3>Median<span style="color:#4c0073"><strong> Household Income</strong></span> and <strong><span style="color:#4c0073">Female Poverty Rates</span></strong> From 2014-2018</h3>
+<p><em>US Cenusus American Community Survey</em></p>
+<p>From the US Census American Community Survey 5-Year Data, the data was filtered to the zip codes from which 79% of Girls Inc. members resided (01040, 01013, 01104, 01109, and 01107), &nbsp;composing mostly of the cities of Holyoke, Chicopee, and Springfield. Zip code areas with less than 20 Girls Inc. members were excluded from visualizations for clarity. Two datasets were provided: median household income of the five zip codes compared to the rest of Hampden County and Massachusetts, and female poverty rates for populations aged 5-17 of the five zip codes compared to the rest of Hampden County and Massachusetts. This data provides insight into the lasting impacts of redlining in the area.&nbsp;</p>
+<p>All five zip codes representing a majority of Girls Inc. members have a considerably smaller median household income than the rest of Hampden County and Massachusetts. The zip codes belonging to Springfield (01104, 01107, and 01109), reperesenting 31% of Girls Inc. members, have the smallest median household income.&nbsp;</p>
+<p>All five zip codes representing a majority of Girls Inc. members have a considerably higher rate of female poverty among those aged 5-17 than the rest of Hampden County and Massachusetts. The Springfield zip code of 01107, representing 12% of Girls Inc. members, has the highest rate of female poverty within this age range.&nbsp;</p>
+<p><img alt="acs" src="https://i.ibb.co/dkLHkz9/censusmedhi.png" style="height:525px; width:607px" /></p>
+<p><img alt="acs" src="https://i.ibb.co/6XyMgr5/censusfpov.png" style="height:525px; width:607px" /></p>')
+
+mcas_chart <- HTML('<h3>Girls&#39; MCAS Scores in 2019 for Springfield, Holyoke, and Chicopee</h3>
+<p><em>Massachusetts Department of Elementary and Secondary Education</em></p>
+<p>The Massachusetts Comprehensive Assessment System or MCAS are the state mandated exams given once a year for grades 3 through 8 once and once in high school for grade 10 as part of the state graduation requirement. There are 4 grades on the exam: Exceeding Expectations, Meeting Expectations, Partially Meeting Expectations, and Not Meeting Expectations.&nbsp;</p>
+<p>On average most girls in these districts are not meeting expectations regardless of subject matter or grade level. The math scores are particularly concerning as they illustrate not only low scores but declining scores.&nbsp;</p>
+<p><img alt="mcas" src="https://i.ibb.co/Fnpkv22/mcas.png" style="height:380px; width:607px" /></p>')
+
+```
+
+
+
 #this is where map screenshots can be added
 ```{r}
 # map html
@@ -173,7 +204,22 @@ diversity_text <- HTML('<h3>Diversity Index 2018</span></strong></h3>
 diversity_map <- HTML('<p><img alt="" src="https://i.ibb.co/G3Y5PfD/diversity-map.png" style="height:370px; width:607px"/></p>')
 
 #this works for adding the maps
-white_race_map <- HTML('<a href="https://ibb.co/f2f4kH6"><img src="https://i.ibb.co/mGk694Z/white.png" alt="white" border="0"></a>')
+
+
+white_race_map <- HTML('<a href="https://ibb.co/HNHCfmZ"><img src="https://i.ibb.co/9wrhkRP/white.png" alt="white" border="0"></a>')
+
+white_race_text <- HTML('<h3>Percentage of people that identify as white in the US census estimate, 2018</span></strong></h3>
+<p><em>The areas highlighted are defined as "place" by the US Census Bureau. A "place" is a concentration of population which has a name, is locally recognized, and is not part of any other place.</em></p>')
+
+black_race_map <- HTML('<a href="https://ibb.co/NK5qqQ6"><img src="https://i.ibb.co/pdcTTGv/black.png" alt="black" border="0"></a>')
+
+black_race_text <- HTML('<h3>Percentage of people that identify as black in the US census estimate, 2018</span></strong></h3>
+<p><em>The areas highlighted are defined as "place" by the US Census Bureau. A "place" is a concentration of population which has a name, is locally recognized, and is not part of any other place.</em></p>')
+
+hispanic_race_map <- HTML('<a href="https://ibb.co/LvLjZg1"><img src="https://i.ibb.co/wY9GzQ4/hispanic.png" alt="hispanic" border="0"></a>')
+
+hispanic_race_text <- HTML('<h3>Percentage of people that identify as hispanic in the US census estimate, 2018</span></strong></h3>
+<p><em>The areas highlighted are defined as "place" by the US Census Bureau. A "place" is a concentration of population which has a name, is locally recognized, and is not part of any other place.</em></p>')
 ```
 
 ```{r}
@@ -189,6 +235,7 @@ sp_hist_econ <- HTML('<h5><p><strong>19th Century</strong></p> <p><em>Synopsis o
 ```{r}
 # add tabs
 sidebar <- dashboardSidebar(
+  width = 280,
   sidebarMenu(
     # tab : about girls inc
     menuItem("About Girls Inc. of the Valley", tabName = "girls", icon = icon("heart")),
@@ -199,9 +246,25 @@ sidebar <- dashboardSidebar(
              menuSubItem("Springfield", tabName = "springfield", icon = icon("city")),
              menuSubItem("Chicopee", tabName = "chicopee", icon = icon("city")),
              menuSubItem("Holyoke", tabName = "holyoke", icon = icon("city"))),
-    menuItem("Overview Charts", icon = icon("chart-bar"), tabName = "charts"),
+
+    #menuItem("Overview Charts", tabName = "charts", icon = icon("chart-bar")),
     # tab : maps from argis (new)
-    menuItem("Overview Map", icon = icon("map"), tabName = "map", badgeLabel = "interactive", badgeColor = "light-blue"),
+    # menuItem("Maps", tabName = "map", icon = icon("map"),
+    #          menuSubItem("Lead Levels", tabName = "lead", icon = icon("map")),
+    #          menuSubItem("Asthma", tabName = "asthma", icon = icon("map")),
+    #          menuSubItem("Household Income", tabName = "household", icon = icon("map")),
+    #          menuSubItem("Diversity", tabName = "diversity", icon = icon("map")),
+    #          menuSubItem("Racial Demographics", tabName = "race", icon = icon("map")),
+    #          menuSubItem("Redlining Maps", tabName = "redlining", icon = icon("map"))),
+
+    menuItem("Factors affecting the communities", tabName = "factors", icon = icon("table"),
+             menuSubItem("Lead Levels", tabName = "lead", icon = icon("map")),
+             menuSubItem("Asthma", tabName = "asthma", icon = icon("map")),
+             menuSubItem("Household Income", tabName = "household", icon = icon("map")),
+             menuSubItem("Diversity", tabName = "diversity", icon = icon("map")),
+             menuSubItem("Racial Demographics", tabName = "race", icon = icon("map")),
+             menuSubItem("Redlining Maps", tabName = "redlining", icon = icon("map"))),
+
     # tab: sources 
     menuItem("Data", icon = icon("table"), tabName = "data")
     
@@ -224,15 +287,22 @@ body <- dashboardBody(
   # end history - wip
   
   # start charts - wip
-    tabItem(tabName = "charts", h1("Overview Charts"), chart_html),
+    #tabItem(tabName = "charts", h1("Overview Charts"), chart_html),
   # end charts - wip
   
   # start map - wip
-    tabItem(tabName = "map", h1("Overview Map"), lead_text, lead_map, pediatric_text, pediatric_map, hospitalization_text, hospitalization_map, child_text, child_map, household_text, household_map, diversity_text, diversity_map, white_race_map, map_box),
+    # tabItem(tabName = "map", h1("Overview Map"), lead_text, lead_map, pediatric_text, pediatric_map, hospitalization_text, hospitalization_map, child_text, child_map, household_text, household_map, diversity_text, diversity_map, white_race_map, white_race_text, black_race_map, black_race_text, hispanic_race_map, hispanic_race_text, map_box),
+    # 
+    tabItem(tabName = "lead", lead_chart, lead_text, lead_map),
+    tabItem(tabName = "asthma", asthma_chart, pediatric_text, pediatric_map, hospitalization_text, hospitalization_map, child_text, child_map),
+    tabItem(tabName = "household", household_chart, household_text, household_map),
+    tabItem(tabName = "diversity", diversity_text, diversity_map),
+    tabItem(tabName = "race", white_race_text, white_race_map, black_race_text, black_race_map, hispanic_race_text, hispanic_race_map,),
+    tabItem(tabName = "redlining"),
   # end map - wip 
   
   # start data - done
-    tabItem(tabName = "data", h1("Sources for Data"), data_html)
+    tabItem(tabName = "data", h1("Sources for Data"), data_html) #why is data showing up in all the lead-race maps??
   # end data - done
   
   )
@@ -241,7 +311,7 @@ body <- dashboardBody(
 # refresh ui
 ui <- dashboardPage(skin = "black", header, sidebar, body)
 server <- function(input,output) {}
-shiny::shinyApp(ui,server)
+shinyApp(ui,server)
 ```
 
 
